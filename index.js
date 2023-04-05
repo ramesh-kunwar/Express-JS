@@ -1,5 +1,9 @@
 const app = require("./app")
+const connectWithDb = require("./config/db")
 
+
+// connect with database
+connectWithDb()
 
 
 
