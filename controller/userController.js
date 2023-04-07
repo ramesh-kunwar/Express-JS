@@ -2,7 +2,26 @@ const BigPromise = require("../middleware/bigPromise")
 const User = require("../model/user")
 const CustomError = require("../utils/customError")
 
+const fileUpload = require("express-fileupload")
+const cloudinary = require("cloudinary").v2
+
+
 exports.signup = BigPromise(async (req, res, next) => {
+
+    // if file  / photo not found
+    if (!req.files) {
+        return next(new CustomError("Phoso is required for signup", 400))
+    }
+
+    // if file found
+    let file = req.files.photo;
+    const result = await cloudinary.uploader.upload(file.tempFilePath, {
+        folder: "users",
+        width: 150,
+        crop: "scale"
+    })
+
+
     const { name, email, password } = req.body;
 
     if (!email || !name || !password) {
@@ -12,7 +31,11 @@ exports.signup = BigPromise(async (req, res, next) => {
     const user = await User.create({
         name,
         email,
-        password
+        password,
+        photo: {
+            id: result.public_id,
+            secure_url: result.secure_url
+        }
     })
 
     const token = user.getJwtToken()

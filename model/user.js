@@ -26,16 +26,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'user'
     },
-    // photo: {
-    //     id: {// from cloudnary
-    //         type: String,
-    //         required: true,
-    //     },
-    //     secure_url: { // from cloudnary
-    //         type: String,
-    //         required: true,
-    //     },
-    // },
+    photo: {
+        id: {// from cloudnary
+            type: String,
+            required: true,
+        },
+        secure_url: { // from cloudnary
+            type: String,
+            required: true,
+        },
+    },
     forgotPasswordToken: {
         type: String,
     },
