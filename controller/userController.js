@@ -197,7 +197,6 @@ exports.passwordReset = BigPromise(async (req, res, next) => {
 })
 
 
-
 exports.getLoggedInUserDetails = BigPromise(async (req, res, next) => {
 
     const user = await User.findById(req.user.id);
